@@ -1,25 +1,21 @@
-from unittest import result
-
-
-def decorator_function(original_fn):
-    def wrapper_function(*args, **kwargs):
-        # Some action before execution of the original_fn
-        print("Executed before function")
-
-        result = original_fn(*args, **kwargs)
-
-        # Some action after execution of the original_fn
-        print("Executed after function")
-
+def validate_args(fn):
+    def wrapper(*args, **kwargs):
+        for arg in [*args, *kwargs.values()]:
+            if not isinstance(arg, int) and not isinstance(arg, float):
+                raise ValueError(f"Type of the {arg} is {type(arg)}",
+                                 "All arguments must be int or float!")
+        result = fn(*args, **kwargs)
         return result
 
-    return wrapper_function
+
+    return wrapper
 
 
-@decorator_function
-def my_function(a, b):
-    print("This is my function!")
-    return (a, b)
+@validate_args
+def sum_nums(a, b):
+    return a + b
 
-result = my_function(100, 50)
-print(result)
+
+print(sum_nums(7, 2))
+print(sum_nums(10.5, 2.3))
+print(sum_nums(a=10.5, b='2.0'))
