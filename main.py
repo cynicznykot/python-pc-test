@@ -1,16 +1,25 @@
 class Comment:
     def __init__(self, text):
         self.text = text
+        self.votes_qty = 0
 
-    @staticmethod
-    def merge_comments(first_comment, second_comment):
-        return f"{first_comment} {second_comment}"
+    def upvote(self):
+        self.votes_qty += 1
+
+    def __add__(self, other):
+        return (f"{self.text} {other.text}",
+                self.votes_qty + other.votes_qty)
+
+    def __eq__(self, other):
+        return (f"{self.text} {other.text}",
+                self.votes_qty == other.votes_qty)
 
 
-my_comment = Comment("My comment")
+first_comment = Comment("First comment")
+first_comment.upvote()
+second_comment = Comment("Second comment")
+second_comment.upvote()
 
-m_1 = Comment.merge_comments("Hello", "World")
-print(m_1)
+print(first_comment + second_comment)
+print(first_comment == second_comment)
 
-m_2 = my_comment.merge_comments("Hi", "World")
-print(m_2)
