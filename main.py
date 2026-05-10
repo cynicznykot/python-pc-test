@@ -15,7 +15,9 @@ def validate_args(fn):
 def sum_nums(a, b):
     return a + b
 
-
-print(sum_nums(7, 2))
-print(sum_nums(10.5, 2.3))
-print(sum_nums(a=10.5, b='2.0'))
+try:
+    print(sum_nums(7, 2))
+    print(sum_nums(10.5, 2.3))
+    print(sum_nums(a=10.5, b='2.0'))
+except ValueError as e:
+    print(e)
