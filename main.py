@@ -1,25 +1,25 @@
-class Comment:
-    def __init__(self, text):
-        self.text = text
-        self.votes_qty = 0
-
-    def upvote(self):
-        self.votes_qty += 1
-
-    def __add__(self, other):
-        return (f"{self.text} {other.text}",
-                self.votes_qty + other.votes_qty)
-
-    def __eq__(self, other):
-        return (f"{self.text} {other.text}",
-                self.votes_qty == other.votes_qty)
+from unittest import result
 
 
-first_comment = Comment("First comment")
-first_comment.upvote()
-second_comment = Comment("Second comment")
-second_comment.upvote()
+def decorator_function(original_fn):
+    def wrapper_function(*args, **kwargs):
+        # Some action before execution of the original_fn
+        print("Executed before function")
 
-print(first_comment + second_comment)
-print(first_comment == second_comment)
+        result = original_fn(*args, **kwargs)
 
+        # Some action after execution of the original_fn
+        print("Executed after function")
+
+        return result
+
+    return wrapper_function
+
+
+@decorator_function
+def my_function(a, b):
+    print("This is my function!")
+    return (a, b)
+
+result = my_function(100, 50)
+print(result)
