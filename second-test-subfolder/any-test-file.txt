@@ -1,1 +1,0 @@
-This is test file on second-test-subfolder without changes
